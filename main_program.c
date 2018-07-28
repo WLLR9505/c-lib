@@ -8,11 +8,26 @@
 
 int main () {
 
-    //usando printc
-    printcolor("Alerta\n", "cor_amarelo");
+    TYPEmenu menuClasses = {
+        "Menu Exemplo",
+        5,
+        {
+        1, "item 1",
+        2, "item 2",
+        3, "item 3",
+        4, "item 4",
+        5, "item 5"
+        }
+    };
 
-    //usando printf
+    Menu(&menuClasses, menuClasses.tamanho);
+
+    // usando printc
+    printcolor("Alerta\n ", "cor_amarelo");
+
+    // usando printf
     printf(cor_vermelho "Cuidado\n" cor_reset);
+
 
     return 0;
 }

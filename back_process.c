@@ -3,6 +3,8 @@
 #include <string.h>
 #include <math.h>
 #include <locale.h>
+#include <unistd.h>
+#include <termios.h>
 #include "lib/cores.h"
 #include "lib/mylib.h"
 
@@ -30,4 +32,124 @@ void printcolor(char texto[512], char cor[16])
         if (strcmp(cor, lista_cores[i].nomeCor) == 0)
             printf("%s%s\x1b[0m", lista_cores[i].color, texto);
     }
+}
+
+//---------------------------------------------------------------------------------------------------
+//---------------------------------------------------------------------------------------------------
+static struct termios old, new;
+
+void initTermios(int echo)
+{
+    tcgetattr(0, &old);
+    new = old;
+    new.c_lflag &= ICANON;
+    new.c_lflag &= echo ? ECHO : ~ECHO;
+    tcsetattr(0, TCSANOW, &new);
+}
+
+void resetTermios(void)
+{
+    tcsetattr(0, TCSANOW, &old);
+}
+
+char getch_(int echo)
+{
+    char ch;
+    initTermios(echo);
+    ch = getchar();
+    resetTermios();
+    return ch;
+}
+
+char getch(void) //sem eco
+{
+    return getch_(0);
+}
+
+char getche(void) //com eco
+{
+    return getch_(1);
+}
+//---------------------------------------------------------------------------------------------------
+//---------------------------------------------------------------------------------------------------
+
+TYPEreturn IO(char mode[8])
+{
+    //++     ++     ++     ++     ++     ++     ++     ++     ++     ++     ++     ++     ++     ++     ++
+    void LimpaIO()
+    {
+        r.i = 0;
+        strcpy(r.s, "");
+        r.f = 0;
+        r.d = 0;
+    }
+    //++     ++     ++     ++     ++     ++     ++     ++     ++     ++     ++     ++     ++     ++     ++
+    LimpaIO();
+    if (strcmp(mode, "m") == 0) //Menu
+    {
+        r.c = getche();
+        return r;
+    }
+    char input[64] = "";
+    scanf("%s", input);
+
+    if (strcmp(mode, "i") == 0)
+    {
+        r.i = atoi(input);
+        return r;
+    }
+    else if (strcmp(mode, "s") == 0)
+    {
+        strcpy(r.s, input);
+        return r;
+    }
+    else if (strcmp(mode, "c") == 0)
+    {
+        r.c = input[0];
+        return r;
+    }
+}
+
+int Menu(TYPEmenu *menu, int nItens)
+{
+    int posSeletor = 0; //Posição inicial do seletor
+    //++     ++     ++     ++     ++     ++     ++     ++     ++     ++     ++     ++     ++     ++     ++
+    void AtualizaMenu()
+    {
+        for (int i2 = 0; i2 < nItens; i2++)
+        {
+            if ((*menu).item[i2].nItem >= 0 && strcmp((*menu).item[i2].descricao, "") != 0)
+            {
+                if (posSeletor == i2)
+                    printf(cor_ciano "%s\n" cor_reset, (*menu).item[i2].descricao);
+                else
+                    printf("%s\n", (*menu).item[i2].descricao);
+            }
+            else
+                continue;
+        }
+        printf("\n");
+    }
+    //++     ++     ++     ++     ++     ++     ++     ++     ++     ++     ++     ++     ++     ++     ++
+    void ExibeMenuPadrao()
+    {
+        do
+        {
+            if (r.c == '8')
+                posSeletor--;
+            else if (r.c == '2')
+                posSeletor++;
+
+            if (posSeletor == nItens)    ///Seletor no fim e avança
+                posSeletor = 0;          //Igual ao primeiro item do menu
+            else if (posSeletor < 0)     //seletor no começo e volta
+                posSeletor = nItens - 1; //Igual ao ultimo item do menu
+
+            system("clear");
+            AtualizaMenu();
+
+            IO("m");
+        } while (r.c == '8' || r.c == '2' || r.c == '\n');
+    }
+    ExibeMenuPadrao();
 }
