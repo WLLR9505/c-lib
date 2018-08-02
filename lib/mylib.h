@@ -24,6 +24,26 @@ typedef struct STRreturn
 } TYPEreturn;
 TYPEreturn r;
 
+typedef enum sn {
+    sim,
+    nao
+} TYENsn;
+
+typedef struct STRcontroles {
+    char cima;
+    char baixo;
+    char esquerda;
+    char direita;
+    char confirmar;
+    char cancelar;
+    char salvar;
+    char sair;
+    char ajuda;
+} TYPEcontroles;
+
+
 void printcolor(char[512], char[16]);
+
+bool validarControles(TYPEreturn);
 
 int Menu(TYPEmenu *, int);
