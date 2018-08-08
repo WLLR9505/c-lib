@@ -1,4 +1,4 @@
-# c-lib
+#lib
 
 Biblioteca pessoal com o objetivo de acumular funções úteis escritas em linguagem C.
 
