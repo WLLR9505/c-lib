@@ -1,7 +1,8 @@
 # lib
 
-Biblioteca pessoal com o objetivo de acumular funções úteis escritas em linguagem C.
+Biblioteca pessoal com o objetivo de acumular funções úteis.
 
+## c
 ##### Composição
 > ***main_program.c***  
 > *arquivo principal de onde são chamadas as funções.*

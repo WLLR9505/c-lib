@@ -121,12 +121,13 @@ int Menu(TYPEmenu *menu, int nItens)
     //++     ++     ++     ++     ++     ++     ++     ++     ++     ++     ++     ++     ++     ++     ++
     void AtualizaMenu()
     {
+        printf("%50s\n\n", (*menu).titulo);
         for (int i2 = 0; i2 < nItens; i2++)
         {
             if ((*menu).item[i2].nItem >= 0 && strcmp((*menu).item[i2].descricao, "") != 0)
             {
                 if (posSeletor == i2)
-                    printf(cor_ciano "%s\n" cor_reset, (*menu).item[i2].descricao);
+                    printf(cor_ciano " %s\n" cor_reset, (*menu).item[i2].descricao);
                 else
                     printf("%s\n", (*menu).item[i2].descricao);
             }
@@ -179,5 +180,69 @@ bool validarControles(TYPEreturn r)
     }
 }
 
+//---------------------------------------------------------------------------------------------------
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+TYPERacional SomaRacional(TYPERacional nr1, TYPERacional nr2)
+{
+    TYPERacional r;
+	r.num = nr1.num * nr2.den + nr2.num * nr1.den;
+	r.den = nr1.den * nr2.den;
+    return r;
+}
+//---------------------------------------------------------------------------------------------------
+//---------------------------------------------------------------------------------------------------
+TYPERacional SubtraiRacional(TYPERacional nr1, TYPERacional nr2)
+{
+    TYPERacional r;
+
+	r.num = nr1.num * nr2.den - nr2.num * nr1.den;
+	r.den = nr1.den * nr2.den;
+    return r;
+}
+//---------------------------------------------------------------------------------------------------
+//---------------------------------------------------------------------------------------------------
+TYPERacional MultRacional(TYPERacional nr1, TYPERacional nr2)
+{
+    TYPERacional r;
+
+	r.num = nr1.num * nr2.num;
+	r.den = nr1.den * nr2.den;
+    return r;
+}
+//---------------------------------------------------------------------------------------------------
+//---------------------------------------------------------------------------------------------------
+TYPERacional DivRacional(TYPERacional nr1, TYPERacional nr2)
+{
+    TYPERacional r;
+
+	r.num = nr1.num * nr2.den;
+	r.den = nr2.num * nr1.den;
+    return r;
+}
+//---------------------------------------------------------------------------------------------------
+//---------------------------------------------------------------------------------------------------
+int MDC(int m, int n)
+{
+    if (m < 0) {
+        m = -m;
+    }
+	if (n < 0) {
+        n = -n;
+    }
+
+	if (m % n == 0) {
+		return n;
+	} else {
+		return MDC(n, m % n);
+    }
+}
+TYPERacional SimplRacional(TYPERacional nr1)
+{
+    TYPERacional r;
+
+    r.num = nr1.num / MDC(nr1.num, nr1.den);
+    r.den = nr1.den / MDC(nr1.num, nr1.den);
+    return r;
+}
 //---------------------------------------------------------------------------------------------------
 //---------------------------------------------------------------------------------------------------

@@ -3,12 +3,68 @@
 #include <string.h>
 #include <math.h>
 #include <locale.h>
+#include <unistd.h>
 #include "lib/cores.h"
 #include "lib/mylib.h"
+
+void opRacionais() {
+    short int posMenu2;
+    TYPERacional a, b, r;
+    TYPEmenu menuOpRac = {
+        "Menu Operações Racionais",
+        5,
+        {
+            1, "Soma",
+            2, "Subtração",
+            3, "Divisão",
+            4, "Multiplicação",
+            5, "voltar"
+        }
+    };
+
+    while(1) {
+        posMenu2 = Menu(&menuOpRac, menuOpRac.tamanho);
+        if (posMenu2 == 4) {
+            break;
+        }
+        printf("Informe A: ");
+        scanf("%d/%d", &a.num, &a.den);
+        printf("Informe B: ");
+        scanf("%d/%d", &b.num, &b.den);
+
+        if (posMenu2 == 0) {
+            r = SomaRacional(a, b);
+            printf("%d/%d\n", r.num, r.den);
+            r = SimplRacional(r);
+        } else if (posMenu2 == 1) {
+            r = SubtraiRacional(a, b);
+            r = SimplRacional(r);
+        } else if (posMenu2 == 2) {
+            r = DivRacional(a, b);
+            r = SimplRacional(r);
+        } else if (posMenu2 == 3) {
+            r = MultRacional(a, b);
+            r = SimplRacional(r);
+        }
+        printf("%d/%d\n", r.num, r.den);
+        sleep(2);
+    }
+    return;
+}
 
 int main () {
 
     short int posMenu;
+
+    TYPEmenu menuPrincipal = {
+        "Menu Principal",
+        3,
+        {
+            1, "cores",
+            2, "operações com racionais",
+            3, "sair"
+        }
+    };
 
     TYPEmenu menuCores = {
         "Menu de Cores",
@@ -21,11 +77,20 @@ int main () {
         5, "cor_ciano"
         }
     };
-
-    posMenu = Menu(&menuCores, menuCores.tamanho);
-
-    // usando printcolor e menu
-    printcolor("cor selecionada no menu\n ", menuCores.item[posMenu].descricao);
+    while (1) {
+        posMenu = Menu(&menuPrincipal, menuPrincipal.tamanho);
+        if (posMenu == 0) {
+            posMenu = Menu(&menuCores, menuCores.tamanho);
+            printcolor("cor selecionada no menu\n ", menuCores.item[posMenu].descricao);
+            sleep(2);
+        } else if (posMenu == 1) {
+            opRacionais();
+            system("clear");
+        } else if (posMenu == 2) {
+            system("clear");
+            break;
+        }
+    }
 
     return 0;
 }

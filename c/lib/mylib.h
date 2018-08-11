@@ -1,3 +1,8 @@
+typedef struct {
+    int num;
+    int den;
+} TYPERacional;
+
 typedef enum boolean {
     true = 1,
     false = 0
@@ -41,6 +46,15 @@ typedef struct STRcontroles {
     char ajuda;
 } TYPEcontroles;
 
+TYPERacional SomaRacional(TYPERacional, TYPERacional);
+
+TYPERacional SubtraiRacional(TYPERacional, TYPERacional);
+
+TYPERacional MultRacional(TYPERacional, TYPERacional);
+
+TYPERacional DivRacional(TYPERacional, TYPERacional);
+
+TYPERacional SimplRacional(TYPERacional);
 
 void printcolor(char[512], char[16]);
 
