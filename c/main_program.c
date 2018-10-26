@@ -52,17 +52,54 @@ void opRacionais() {
     return;
 }
 
+void menuTemperatura() {
+    short int posMenu2;
+    TYPEmenu menuConversaoTemp = {
+        "Menu Conversão de Temperatura",
+        3,
+        {
+            1, "Fahrenheit para Celsius",
+            2, "Celsius para Fahrenheit",
+            3, "Voltar"
+        }
+    };
+
+    while(1) {
+        float temperatura;
+        system("clear");
+        posMenu2 = Menu(&menuConversaoTemp, menuConversaoTemp.tamanho);
+        if (posMenu2 == 2) {
+            break;
+        }
+
+        if (posMenu2 == 0) {
+            printf("Digite uma Temperatura em Fahrenheit\n");
+            scanf("%f", &temperatura);
+            printf("%.2f F    -    %.5f C\n", temperatura, Fahrenheit2Celsius(temperatura));
+        } else if (posMenu2 == 1) {
+            printf("Digite uma Temperatura em Celsius\n");
+            scanf("%f", &temperatura);
+            printf("%.2f C    -    %.5f F\n", temperatura, Celsius2Fahrenheit(temperatura));
+        }
+        sleep(3);
+    }
+    return;
+}
+
 int main () {
 
     short int posMenu;
+    int dec;
+    char res[64];
 
     TYPEmenu menuPrincipal = {
         "Menu Principal",
-        3,
+        4,
         {
             1, "cores",
             2, "operações com racionais",
-            3, "sair"
+            3, "conversão Temperatura",
+            4, "sair"
         }
     };
 
@@ -87,10 +124,12 @@ int main () {
             opRacionais();
             system("clear");
         } else if (posMenu == 2) {
+            menuTemperatura();
+            system("clear");
+        } else if (posMenu == 3) {
             system("clear");
             break;
         }
     }
-
     return 0;
 }

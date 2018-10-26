@@ -56,6 +56,10 @@ TYPERacional DivRacional(TYPERacional, TYPERacional);
 
 TYPERacional SimplRacional(TYPERacional);
 
+float Fahrenheit2Celsius(float);
+
+float Celsius2Fahrenheit(float);
+
 void printcolor(char[512], char[16]);
 
 bool validarControles(TYPEreturn);
