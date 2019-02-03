@@ -60,8 +60,16 @@ float Fahrenheit2Celsius(float);
 
 float Celsius2Fahrenheit(float);
 
+char getch();
+
+char getche();
+
+int Dec2Bin (int);
+
 void printcolor(char[512], char[16]);
 
 bool validarControles(TYPEreturn);
 
 int Menu(TYPEmenu *, int);
+
+float DistAB(float, float, float, float);

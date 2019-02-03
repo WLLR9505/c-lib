@@ -94,12 +94,13 @@ int main () {
 
     TYPEmenu menuPrincipal = {
         "Menu Principal",
-        4,
+        5,
         {
             1, "cores",
             2, "operações com racionais",
             3, "conversão Temperatura",
-            4, "sair"
+            4, "distância entre dois pontos",
+            5, "sair"
         }
     };
 
@@ -127,6 +128,13 @@ int main () {
             menuTemperatura();
             system("clear");
         } else if (posMenu == 3) {
+            float x1, x2, y1, y2;
+            printf("Digite os pontos A [x1,y1] e B [x2,y2]\n");
+            scanf("%f %f %f %f", &x1, &y1, &x2, &y2);
+            printf("%f\n", DistAB(x1, y1, x2, y2));
+            sleep(2);
+            system("clear");
+        } else if (posMenu == 4) {
             system("clear");
             break;
         }
