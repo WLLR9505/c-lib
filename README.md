@@ -1,4 +1,5 @@
 # lib
+[![CodeFactor](https://www.codefactor.io/repository/github/wllr9505/lib/badge)](https://www.codefactor.io/repository/github/wllr9505/lib)  
 
 Biblioteca pessoal com o objetivo de acumular funções úteis.
 
